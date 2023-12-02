@@ -1,5 +1,6 @@
 import { Button, Input } from '@ensdomains/thorin'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { ethers } from 'ethers'
 import Head from 'next/head'
 import { useState } from 'react'
 import { useAccount, useSignMessage } from 'wagmi'
@@ -9,6 +10,43 @@ import { useDebounce } from '@/hooks/useDebounce'
 import { useFetch } from '@/hooks/useFetch'
 import { Card, Form, Helper, Link, Spacer } from '@/styles'
 import { WorkerRequest } from '@/types'
+
+const abi = [
+  {
+    inputs: [
+      {
+        internalType: 'bytes',
+        name: 'name',
+        type: 'bytes',
+      },
+      {
+        internalType: 'bytes',
+        name: 'data',
+        type: 'bytes',
+      },
+    ],
+    name: 'resolve',
+    outputs: [
+      {
+        internalType: 'bytes',
+        name: 'result',
+        type: 'bytes',
+      },
+      {
+        internalType: 'uint64',
+        name: 'expires',
+        type: 'uint64',
+      },
+      {
+        internalType: 'bytes',
+        name: 'sig',
+        type: 'bytes',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+]
 
 export default function App() {
   const { address } = useAccount()
@@ -37,13 +75,52 @@ export default function App() {
     data: gatewayData,
     error: gatewayError,
     isLoading: gatewayIsLoading,
-  } = useFetch(data && 'https://ens-gateway.gregskril.workers.dev/set', {
+  } = useFetch(data && 'https://ens-gateway.thp76fmkkf.workers.dev/set', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(requestBody),
   })
+
+  const generateLookupParams = async () => {
+    const name = ethers.utils.toUtf8Bytes('test')
+    const data = ethers.utils.toUtf8Bytes('exampleData')
+
+    const iface = new ethers.utils.Interface(abi)
+    const sigHash = iface.getSighash('resolve')
+    console.log(
+      '🚀 ~ file: index.tsx:89 ~ generateLookupParams ~ sigHash:',
+      sigHash
+    )
+    const calldata = iface.encodeFunctionData('resolve', [name, data])
+    console.log(
+      '🚀 ~ file: index.tsx:94 ~ generateLookupParams ~ calldata:',
+      calldata
+    )
+
+    // const name = ethers.utils.toUtf8Bytes('exampleName')
+    // const data = ethers.utils.toUtf8Bytes('exampleData')
+
+    // // Your input string
+    // const inputString = 'Hello, World!'
+
+    // // Create a TextEncoder instance
+    // const textEncoder = new TextEncoder()
+
+    // // Convert the string to bytes
+    // const byteArray = textEncoder.encode(inputString)
+
+    // // Log the result
+    // console.log(byteArray)
+
+    // const iface = new ethers.utils.Interface(abi)
+    // const calldata = iface.encodeFunctionData('resolve', [name, data])
+    // console.log(
+    //   '🚀 ~ file: index.tsx:104 ~ generateLookupParams ~ calldata:',
+    //   calldata
+    // )
+  }
 
   return (
     <>
@@ -120,6 +197,26 @@ export default function App() {
           <Helper type="error">Name must be lowercase alphanumeric</Helper>
         ) : null}
       </Card>
+
+      <Button
+        onClick={() => {
+          // const el = {
+          //   name: `${debouncedName}.offchaindemo.eth`,
+          //   owner: address!,
+          //   addresses: { '60': address },
+          //   texts: { description },
+          //   signature: {
+          //     hash: data!,
+          //     message: variables?.message!,
+          //   },
+          // }
+          // console.log(el)
+
+          generateLookupParams()
+        }}
+      >
+        Show Result
+      </Button>
 
       <Footer />
     </>

@@ -21,7 +21,7 @@ These choices allow for a scalable namespace with low cost (store up to 1M names
 3. Create a D1 instance: `npx wrangler d1 create <DATABASE_NAME>` and update the `[[d1_databases]]` section of `wrangler.toml` with the returned info
 4. Install dependencies: `yarn install`
 5. Create the default table in the local database: `yarn run dev:create-tables`
-6. Set your environment variables: `cp .dev.vars.example .dev.vars` (this is the private key for one of the addresses listed as a signer on your resolver contract)
+6. Set your environment variables: `cp .dev.vars.example .dev.vars` (this is the private key for one of the addresses listed as a signer on your resolver contract. It must start with 0x)
 7. Start the dev server: `yarn dev`
 
 ## Deploy to Cloudflare
