@@ -4,8 +4,8 @@ compatibility_date = "2023-03-15"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "offchaindemo"
-database_id = "6b30bc65-edda-4e25-bb5a-8681b0419031"
+database_name = "constellation"
+database_id = "8312edce-ca9e-4a97-a9db-b081f665cb4e"
 
 # The necessary secrets are:
 # - PRIVATE_KEY
