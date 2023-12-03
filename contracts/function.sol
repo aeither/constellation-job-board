@@ -2,6 +2,7 @@
 
 // deployed at 0x8FeC581402D788fCBbc074488883b9d64A5dc790 on Mumbai
 // use subscriptionId 1026
+// it cost 0.2 to call sendRequest 1026 [1]
 
 pragma solidity 0.8.19;
 
