@@ -64,7 +64,7 @@ export default function App() {
     name: `${debouncedName}.offchaindemo.eth`,
     owner: address!,
     addresses: { '60': address },
-    texts: { description },
+    texts: { description }, // { description: 'Your portable web3 profile', avatar, url, twitter, github, telegram, discord }
     signature: {
       hash: data!,
       message: variables?.message!,
