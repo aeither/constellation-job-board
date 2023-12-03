@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.19;
 
-// 0xe4A0682A04bF47b455A69C04F893a9Cd5b09fF4C on Sepolia
+// 0xe4A0682A04bF47b455A69C04F893a9Cd5b09fF4C on sepolia
+// status https://ccip.chain.link/msg/0x46ae0c8c34dc6afacae2dd35e36e3aae33b0c1e9d8dd202edd24bb886ae061ba
 
 import {IRouterClient} from "@chainlink/contracts-ccip/src/v0.8/ccip/interfaces/IRouterClient.sol";
 import {OwnerIsCreator} from "@chainlink/contracts-ccip/src/v0.8/shared/access/OwnerIsCreator.sol";
