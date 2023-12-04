@@ -1,6 +1,11 @@
+import { Typography } from '@ensdomains/thorin'
 import styled from 'styled-components'
+import { useAccount } from 'wagmi'
 
+import { useFetch } from '@/hooks/useFetch'
 import { Link } from '@/styles'
+import { WORKER_URL } from '@/utils/contants'
+import { OwnerData } from '@/utils/types'
 
 const Container = styled.footer`
   display: flex;
@@ -8,13 +13,22 @@ const Container = styled.footer`
 `
 
 export function Footer() {
+  const { address } = useAccount()
+  const { data: ownerData } = useFetch<OwnerData>(
+    `${WORKER_URL}/owner/${address}`
+  )
+
   return (
     <Container>
-      <Link href="https://docs.ens.domains/dapp-developer-guide/ens-l2-offchain">
-        Docs
-      </Link>
+      <Link href="/">Home</Link>
 
-      <Link href="https://github.com/gskril/ens-offchain-registrar">Repo</Link>
+      <Link href="/profile">Profile</Link>
+
+      {ownerData && (
+        <Link href={`https://app.ens.domains/${ownerData.name}?tab=records`}>
+          ENS Manager
+        </Link>
+      )}
     </Container>
   )
 }

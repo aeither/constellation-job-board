@@ -9,26 +9,8 @@ import { useDebounce } from '@/hooks/useDebounce'
 import { useFetch } from '@/hooks/useFetch'
 import { Card, Form, Helper, Link } from '@/styles'
 import { WorkerRequest } from '@/types'
-
-type Address = {
-  [key: string]: string
-}
-
-type Texts = {
-  description: string
-}
-
-type OwnerData = {
-  name: string
-  owner: string
-  addresses: Address
-  texts: Texts
-  createdAt: string
-  updatedAt: string
-}
-
-// const WORKER_URL = 'https://ens-gateway.thp76fmkkf.workers.dev'
-const WORKER_URL = 'http://127.0.0.1:8787'
+import { WORKER_URL } from '@/utils/contants'
+import { OwnerData } from '@/utils/types'
 
 export default function App() {
   const { address } = useAccount()
