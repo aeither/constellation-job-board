@@ -29,6 +29,16 @@ export const ZodJobPost = z.object({
   updated_at: z.string(),
 })
 
+export const ZodJobRequest = z.object({
+  title: z.string(),
+  author: z.string(),
+  description: z.string().nullable(),
+  image_url: z.string().nullable(),
+  candidates: z.array(z.string()).nullable(),
+  expiry_date: z.string().nullable(),
+  website_url: z.string().nullable(),
+})
+
 export type Name = z.infer<typeof ZodName>
 export type JobPost = z.infer<typeof ZodJobPost>
 export type NameWithSignature = z.infer<typeof ZodNameWithSignature>

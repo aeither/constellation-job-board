@@ -14,6 +14,7 @@ import { OwnerData } from '@/utils/types'
 
 export default function App() {
   const { address } = useAccount()
+  const [shouldFetch, setShouldFetch] = useState(true)
 
   const [name, setName] = useState<string | undefined>(undefined)
   const [description, setDescription] = useState<string | undefined>(undefined)
@@ -74,7 +75,7 @@ export default function App() {
         </>
       )}
 
-      <Heading>New Profile</Heading>
+      <Heading>Create New Profile</Heading>
       <Card>
         <ConnectButton showBalance={false} />
 

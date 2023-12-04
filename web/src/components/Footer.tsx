@@ -20,9 +20,9 @@ export function Footer() {
 
   return (
     <Container>
-      <Link href="/">Home</Link>
+      <a href="/">Home</a>
 
-      <Link href="/profile">Profile</Link>
+      <a href="/profile">Profile</a>
 
       {ownerData && (
         <Link href={`https://app.ens.domains/${ownerData.name}?tab=records`}>

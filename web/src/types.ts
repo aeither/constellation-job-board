@@ -9,3 +9,13 @@ export interface WorkerRequest {
     hash: string
   }
 }
+
+export interface JobPostRequest {
+  title: string
+  author: string
+  description?: string
+  image_url?: string
+  candidates?: string[]
+  expiry_date?: string
+  website_url?: string
+}
