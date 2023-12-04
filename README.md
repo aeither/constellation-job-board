@@ -1,5 +1,10 @@
 # Overview
 
+Job board form, job board list, profile subdomain form, apply button, 
+- salary in eth get from data_feed
+- waiting (ccip, automation)
+- function my backend
+
 Goerli Resolver Deployment
 
 https://goerli.etherscan.io/address/0x20fab84C3aec6abD76ba9a961EA06ED33B42ED45
