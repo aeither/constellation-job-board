@@ -16,7 +16,21 @@ export const ZodNameWithSignature = ZodName.extend({
   }),
 })
 
+export const ZodJobPost = z.object({
+  id: z.number(),
+  image_url: z.string().nullable(),
+  title: z.string(),
+  description: z.string().nullable(),
+  author: z.string(),
+  candidates: z.array(z.string()).nullable(),
+  expiry_date: z.string().nullable(), // Use a string for date representation
+  website_url: z.string().nullable(),
+  created_at: z.string(),
+  updated_at: z.string(),
+})
+
 export type Name = z.infer<typeof ZodName>
+export type JobPost = z.infer<typeof ZodJobPost>
 export type NameWithSignature = z.infer<typeof ZodNameWithSignature>
 
 export interface NameInKysely {
@@ -27,4 +41,17 @@ export interface NameInKysely {
   contenthash: string | null
   createdAt: ColumnType<Date, never, never>
   updatedAt: ColumnType<Date, never, string | undefined>
+}
+
+export interface JobPostInKysely {
+  id: number
+  image_url: string | null
+  title: string
+  description: string | null
+  author: string
+  candidates: string[] | null
+  expiry_date: string | null // Use a string for date representation
+  website_url: string | null
+  created_at: string // Assuming the timestamp is stored as a string
+  updated_at: string // Assuming the timestamp is stored as a string
 }

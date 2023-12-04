@@ -9,3 +9,18 @@ CREATE TABLE IF NOT EXISTS names (
 	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+DROP TABLE IF EXISTS job_posts;
+
+CREATE TABLE IF NOT EXISTS job_posts (
+    id SERIAL PRIMARY KEY,
+    image_url TEXT,
+    title TEXT NOT NULL,
+    description TEXT,
+    author TEXT NOT NULL,
+    candidates TEXT[],
+    expiry_date DATE,
+    website_url TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
