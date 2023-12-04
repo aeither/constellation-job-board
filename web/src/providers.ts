@@ -10,7 +10,7 @@ const { publicClient, webSocketPublicClient } = configureChains(chains, [
 ])
 
 const { connectors } = getDefaultWallets({
-  appName: 'Offchain ENS Registar',
+  appName: 'Constellation Job Board',
   projectId: 'd6c989fb5e87a19a4c3c14412d5a7672',
   chains,
 })

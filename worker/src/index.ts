@@ -2,6 +2,7 @@ import { Router, createCors } from 'itty-router'
 
 import { Env } from './env'
 import { getCcipRead, getName, getNames, setName } from './handlers'
+import { getOwner } from './handlers/getOwner'
 
 const { preflight, corsify } = createCors()
 const router = Router()
@@ -10,6 +11,7 @@ router
   .all('*', preflight)
   .get('/lookup/*', (request, env) => getCcipRead(request, env))
   .get('/get/:name', (request, env) => getName(request, env))
+  .get('/owner/:address', (request, env) => getOwner(request, env))
   .get('/names', (request, env) => getNames(env))
   .post('/set', (request, env) => setName(request, env))
   .all('*', () => new Response('Not found', { status: 404 }))

@@ -1,6 +1,5 @@
 import { Button, Heading, Input, Typography } from '@ensdomains/thorin'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { ethers } from 'ethers'
 import Head from 'next/head'
 import { useState } from 'react'
 import { useAccount, useSignMessage } from 'wagmi'
@@ -8,45 +7,28 @@ import { useAccount, useSignMessage } from 'wagmi'
 import { Footer } from '@/components/Footer'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useFetch } from '@/hooks/useFetch'
-import { Card, Form, Helper, Link, Spacer } from '@/styles'
+import { Card, Form, Helper, Link } from '@/styles'
 import { WorkerRequest } from '@/types'
 
-const abi = [
-  {
-    inputs: [
-      {
-        internalType: 'bytes',
-        name: 'name',
-        type: 'bytes',
-      },
-      {
-        internalType: 'bytes',
-        name: 'data',
-        type: 'bytes',
-      },
-    ],
-    name: 'resolve',
-    outputs: [
-      {
-        internalType: 'bytes',
-        name: 'result',
-        type: 'bytes',
-      },
-      {
-        internalType: 'uint64',
-        name: 'expires',
-        type: 'uint64',
-      },
-      {
-        internalType: 'bytes',
-        name: 'sig',
-        type: 'bytes',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-]
+type Address = {
+  [key: string]: string
+}
+
+type Texts = {
+  description: string
+}
+
+type OwnerData = {
+  name: string
+  owner: string
+  addresses: Address
+  texts: Texts
+  createdAt: string
+  updatedAt: string
+}
+
+// const WORKER_URL = 'https://ens-gateway.thp76fmkkf.workers.dev'
+const WORKER_URL = 'http://127.0.0.1:8787'
 
 export default function App() {
   const { address } = useAccount()
@@ -75,13 +57,17 @@ export default function App() {
     data: gatewayData,
     error: gatewayError,
     isLoading: gatewayIsLoading,
-  } = useFetch(data && 'https://ens-gateway.thp76fmkkf.workers.dev/set', {
+  } = useFetch(data && `${WORKER_URL}/set`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(requestBody),
   })
+
+  const { data: ownerData } = useFetch<OwnerData>(
+    `${WORKER_URL}/owner/${address}`
+  )
 
   return (
     <>
@@ -98,6 +84,15 @@ export default function App() {
         />
       </Head>
 
+      <Heading>Profile</Heading>
+      {ownerData && (
+        <>
+          <Typography>{ownerData.name}</Typography>
+          <Typography>{ownerData.texts.description}</Typography>
+        </>
+      )}
+
+      <Heading>New Profile</Heading>
       <Card>
         <ConnectButton showBalance={false} />
 
@@ -146,7 +141,9 @@ export default function App() {
           <Helper>
             <p>
               Visit the{' '}
-              <Link href={`https://ens.app/${debouncedName}.constellationhub.eth`}>
+              <Link
+                href={`https://ens.app/${debouncedName}.constellationhub.eth`}
+              >
                 ENS Manager
               </Link>{' '}
               to see your name
